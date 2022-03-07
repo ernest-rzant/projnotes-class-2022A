@@ -6,14 +6,19 @@
 
 //var app = require('../app');
 import app from '../app';
-var debug = require('debug')('projnotes:server');
-var http = require('http');
+// var debug = require('debug')('projnotes:server');
+import Debug from 'debug';
+// var http = require('http');
+import http from "http";
+
+// Creando instancia del debugger
+const debug = Debug('projnotes:server');
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT || '3000');
 // ExpressJs[] [NODE]
 app.set('port', port);
 
@@ -21,7 +26,7 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+const server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -37,7 +42,7 @@ server.on('listening', onListening);
  */
 
 function normalizePort(val) {
-  var port = parseInt(val, 10);
+  const port = parseInt(val, 10);
 
   if (isNaN(port)) {
     // named pipe
@@ -68,11 +73,13 @@ function onError(error) {
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
+      // console.error(bind + ' requires elevated privileges');
+      console.error(`${bind} requires elevated privileges`);
       process.exit(1);
       break;
     case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
+      // console.error(bind + ' is already in use');
+      console.error(`${bind} is already in use`);
       process.exit(1);
       break;
     default:
@@ -85,10 +92,14 @@ function onError(error) {
  */
 
 function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
-  debug('Listening on ' + bind);
-  console.log(`Servidor escuchando... en ${app.get('port')}`);
+  const addr = server.address();
+  const bind =
+    typeof addr === "string"
+      ? // ? 'pipe ' + addr
+        `pipe ${addr}`
+      : // : 'port ' + addr.port;
+        `port ${addr.port}`;
+  // debug('Listening on ' + bind);
+  debug(`Listening on ${bind}`);
+  console.log(`Servidor escuchando... en ${app.get("port")}`);
 }
