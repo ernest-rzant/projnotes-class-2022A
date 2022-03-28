@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./dist/bin/www.js",
     "dev": "babel-watch ./server/bin/www",
-    "client:server": "SET NODE_ENV = development && webpack serve --config ./webpack.config.js --mode development",
+    "client:server": "SET NODE_ENV = development && webpack serve --config ./webpack.dev.config.js --mode development",
     "clean:l": "m -rf dist",
     "clean:cp": "rimraf dist",
     "build:s": "npm run clean:cp && babel ./server --out-dir dist --copy-files"
