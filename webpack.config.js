@@ -1,6 +1,8 @@
 // Impotando dependencia path
 // dependencia del core de Node
 const path = require('path');
+// Plugins para Webpack
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 
 module.exports = {
@@ -15,4 +17,41 @@ module.exports = {
         // 2.3 path publico
         publicPath: '/',
     },
+    // 3. Modulos
+    module: {
+        rules: [
+            // 3.1 Regla para Babel
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: [
+                    // 3.1.1 Primer stage
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: [
+                                [
+                                    '@babel/preset-env', {
+                                        modules: false,
+                                        useBuiltIns: 'usage',
+                                        targets: '> 0.25%, not dead',
+                                        corejs: 3
+                                    }
+                                ]
+                            ]
+                        }
+                    }
+                ]
+            },
+            // 3.2 Reglas para Css
+            {
+                test: /\.css$/,
+                use: [MiniCssExtractPlugin]
+            }
+        ]
+    },
+    // 4. Plugins
+    plugins: [new MiniCssExtractPlugin({
+        filename: path.join('stylessheets', 'styles.css')
+    })]
 }
