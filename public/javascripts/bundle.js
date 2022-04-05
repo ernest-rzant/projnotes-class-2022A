@@ -1,1 +1,0 @@
-(()=>{"use strict";console.log("Webpack Working!!! 🎁"),((o="Hola")=>{console.log(o)})(),async function(){console.log("Calling asyn funtion!!!");const o=await new Promise((o=>{setTimeout((()=>{o("funtion resolve")}),1e4)}));console.log(o)}()})();

@@ -3,10 +3,10 @@
 import './styles/style.css'
 import './styles/mystyle.css'
 
-console.log("Webpack Working!!! 🎁");
+console.log("🎁 Frond-End Working!!!");
 
 // default parameters
-let show = (m = "Hola") => {
+let show = (m = "😝") => {
     console.log(m);
 };
 show();
