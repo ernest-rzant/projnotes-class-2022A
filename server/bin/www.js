@@ -4,12 +4,12 @@
  * Module dependencies.
  */
 
-//var app = require('../app');
+// var app = require('../app');
 import app from '@s/app';
 // var debug = require('debug')('projnotes:server');
 import Debug from 'debug';
 // var http = require('http');
-import http from "http";
+import http from 'http';
 
 // Creando instancia del debugger
 const debug = Debug('projnotes:server');
@@ -66,9 +66,7 @@ function onError(error) {
     throw error;
   }
 
-  var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
+  const bind = typeof port === 'string' ? `Pipe ${port}` : `Port ${port}`;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
@@ -94,12 +92,12 @@ function onError(error) {
 function onListening() {
   const addr = server.address();
   const bind =
-    typeof addr === "string"
+    typeof addr === 'string'
       ? // ? 'pipe ' + addr
         `pipe ${addr}`
       : // : 'port ' + addr.port;
         `port ${addr.port}`;
   // debug('Listening on ' + bind);
   debug(`Listening on ${bind}`);
-  console.log(`Servidor escuchando... en ${app.get("port")}`);
+  console.log(`Servidor escuchando... en ${app.get('port')}`);
 }
