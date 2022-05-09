@@ -19,6 +19,8 @@ import WebpackDevMiddleware from 'webpack-dev-middleware';
 import WebpackHotMiddleware from 'webpack-hot-middleware';
 // Importando nuestro logger
 import { error } from 'console';
+// Importndo configurador de plantillas
+import templateEngineConfigurator from './config/templeteEngine';
 import winston from './config/winston';
 import indexRouter from './routes/index';
 import usersRouter from './routes/users';
@@ -77,8 +79,7 @@ if (nodeEnv === 'development') {
 
 // Configuracion del motor de pantillas (templae Engine)
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
+templateEngineConfigurator(app);
 
 // Todos los middleware globales
 // van primero que cualquier otro middleware en la app
