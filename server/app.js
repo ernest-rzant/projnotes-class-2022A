@@ -22,9 +22,8 @@ import { error } from 'console';
 // Importndo configurador de plantillas
 import templateEngineConfigurator from './config/templeteEngine';
 import winston from './config/winston';
-import indexRouter from './routes/index';
-import usersRouter from './routes/users';
-import aboutRouter from './routes/about';
+// Importando enrutador principal
+import router from './routes/router';
 
 // Importando modulos de webpack
 // Nucleo de webpack
@@ -91,16 +90,14 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // Registrando las rtas en la APP
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/about', aboutRouter);
+router.addRoutes(app);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   // Registrando el error 404
-  winston.error(
-    `404 - Not Found: ${req.method} ${req.originalUrl} : IP ${req.ip}`
-  );
+  // winston.error(
+  //   `404 - Not Found: ${req.method} ${req.originalUrl} : IP ${req.ip}`
+  // );
   next(createError(404));
 });
 

@@ -1,4 +1,8 @@
 #!/usr/bin/env node
+/* eslint-disable import/no-unresolved */
+/* eslint-disable no-shadow */
+/* eslint-disable no-restricted-globals */
+/* eslint-disable no-use-before-define */
 
 /**
  * Module dependencies.
