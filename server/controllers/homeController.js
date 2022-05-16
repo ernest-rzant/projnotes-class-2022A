@@ -30,6 +30,9 @@ const about = (req, res) => {
     name: 'PhD Ernest Rodriguez',
     email: 'ernestorodriguez643@gmail.com',
     url: 'https://github.com/ernest-rzant',
+    description:
+      'Aplicacion que te permite registrar ideas de proyectos. PwpcII-2022A',
+    version: '0.0.alpha',
   });
 };
 
