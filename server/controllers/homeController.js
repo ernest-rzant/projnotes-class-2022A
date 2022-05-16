@@ -24,7 +24,17 @@ const index = (req, res) => {
   res.render('index', viewModel);
 };
 
+// URL: Get /about
+const about = (req, res) => {
+  res.render('home/aboutView', {
+    name: 'PhD Ernest Rodriguez',
+    email: 'ernestorodriguez643@gmail.com',
+    url: 'https://github.com/ernest-rzant',
+  });
+};
+
 export default {
   // Action Methods
   index,
+  about,
 };
