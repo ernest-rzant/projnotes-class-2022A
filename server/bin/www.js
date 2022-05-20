@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* eslint-disable import/no-unresolved */
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-restricted-globals */
 
 /**
