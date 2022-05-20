@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 /* eslint-disable import/no-unresolved */
-/* eslint-disable no-shadow */
 /* eslint-disable no-restricted-globals */
-/* eslint-disable no-use-before-define */
 
 /**
  * Module dependencies.
@@ -28,6 +26,22 @@ const debug = Debug('projnotes:server');
  * Get port from environment and store in Express.
  */
 
+function normalizePort(val) {
+  const port = parseInt(val, 10);
+
+  if (Number.isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
 const port = normalizePort(configkeys.port || '5000');
 // ExpressJs[] [NODE]
 app.set('port', port);
@@ -42,39 +56,38 @@ const server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port); // Pone al server a escuchar
-// Se registran eventos
-server.on('error', onError); // Manejador de eventos
-server.on('listening', onListening);
-
-/**
- * Normalize a port into a number, string, or false.
- */
-
-function normalizePort(val) {
-  const port = parseInt(val, 10);
-
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
-
-  if (port >= 0) {
-    // port number
-    return port;
-  }
-
-  return false;
+function onListening() {
+  const addr = server.address();
+  const bind =
+    typeof addr === 'string'
+      ? // ? 'pipe ' + addr
+        `pipe ${addr}`
+      : // : 'port ' + addr.port;
+        `port ${addr.port}`;
+  // debug('Listening on ' + bind);
+  debug(`Listening on ${bind}`);
+  winston.info(`Servidor escuchando... en ${app.get('port')}`);
 }
-
 /**
- * Event listener for HTTP server "error" event.
+ * Event listener for HTTP server "listening" event.
  */
 
 function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
   }
+  server.listen(port); // Pone al server a escuchar
+  // Se registran eventos
+  server.on('error', onError); // Manejador de eventos
+  server.on('listening', onListening);
+
+  /**
+   * Normalize a port into a number, string, or false.
+   */
+
+  /**
+   * Event listener for HTTP server "error" event.
+   */
 
   const bind = typeof port === 'string' ? `Pipe ${port}` : `Port ${port}`;
 
@@ -93,21 +106,4 @@ function onError(error) {
     default:
       throw error;
   }
-}
-
-/**
- * Event listener for HTTP server "listening" event.
- */
-
-function onListening() {
-  const addr = server.address();
-  const bind =
-    typeof addr === 'string'
-      ? // ? 'pipe ' + addr
-        `pipe ${addr}`
-      : // : 'port ' + addr.port;
-        `port ${addr.port}`;
-  // debug('Listening on ' + bind);
-  debug(`Listening on ${bind}`);
-  winston.info(`Servidor escuchando... en ${app.get('port')}`);
 }
