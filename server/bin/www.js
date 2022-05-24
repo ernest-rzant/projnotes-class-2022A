@@ -1,6 +1,4 @@
 #!/usr/bin/env node
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-restricted-globals */
 
 /**
  * Module dependencies.
@@ -76,10 +74,6 @@ function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
   }
-  server.listen(port); // Pone al server a escuchar
-  // Se registran eventos
-  server.on('error', onError); // Manejador de eventos
-  server.on('listening', onListening);
 
   /**
    * Normalize a port into a number, string, or false.
@@ -107,3 +101,7 @@ function onError(error) {
       throw error;
   }
 }
+server.listen(port); // Pone al server a escuchar
+// Se registran eventos
+server.on('error', onError); // Manejador de eventos
+server.on('listening', onListening);

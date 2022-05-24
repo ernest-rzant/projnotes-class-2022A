@@ -32,6 +32,12 @@ import router from './routes/router';
 // Configuracion
 import webpackConfig from '../webpack.dev.config';
 
+// Importand las variables de configuracion
+import configKeys from './config/configkeys';
+
+// importando clase conectora a la base de datos
+import MongooseODM from './config/odm';
+
 // Aqui se crea la instancia de express
 // (req, res, next)
 const app = express();
@@ -75,6 +81,24 @@ if (nodeEnv === 'development') {
 } else {
   console.log(`🛡 Ejecutando en modo produccion ⚙⚙`);
 }
+
+// Conexion a la base de datos
+// creando una instancia a la conexion de la DB
+const mongooseODM = new MongooseODM(configKeys.databaseUrl);
+// Ejecutar la conexion a la Bd
+// Crear una IIFE para crear un ambito asincrono
+// que me permita usar async await
+(async () => {
+  // Ejecutamos el metodo de conexion
+  const connectionResult = await mongooseODM.connect();
+  // Checamos si hay error
+  if (connectionResult) {
+    // si conecto correctamente
+    winston.info('🆗 Conexion a la BD exitosa 👌');
+  } else {
+    winston.error('😲 No se conecto a la base de datos');
+  }
+})();
 
 // Configuracion del motor de pantillas (templae Engine)
 // view engine setup
