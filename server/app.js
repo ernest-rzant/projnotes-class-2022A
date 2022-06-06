@@ -17,10 +17,9 @@ import morgan from 'morgan';
 import webpack from 'webpack';
 import WebpackDevMiddleware from 'webpack-dev-middleware';
 import WebpackHotMiddleware from 'webpack-hot-middleware';
-// Importando nuestro logger
-import { error } from 'console';
 // Importndo configurador de plantillas
 import templateEngineConfigurator from './config/templeteEngine';
+// Importando nuestro logger
 import winston from './config/winston';
 // Importando enrutador principal
 import router from './routes/router';
@@ -133,7 +132,7 @@ app.use((err, req, res) => {
 
   // Registamos el error en winston
   winston.error(
-    `${error.status || 500} : ${err.message} : ${req.method} ${
+    `${err.status || 500} : ${err.message} : ${req.method} ${
       req.originalUrl
     } : IP ${req.ip}}`
   );
